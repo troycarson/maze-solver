@@ -14,5 +14,8 @@
   * 
   *************************************************************************************/
 public class Driver {
-
+	public static void main(String[] args){
+		Maze myMaze = new Maze(4, 5, "maze1.txt");
+		System.out.println(myMaze.toString());
+	}
 }

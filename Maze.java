@@ -13,7 +13,13 @@
   * DESCRIPTION: 		This file contains the methods and constructor for my Maze class 
   * 
   *************************************************************************************/
+import java.util.*;
+import java.io.*;
 public class Maze {
+	private Grid myGrid;
+	private int rows;
+	private int columns; 
+	String fileName;
 	/*************************************************************************************
    	* 
    	* Method: 			Maze
@@ -26,7 +32,21 @@ public class Maze {
    	* 
    	************************************************************************************/
 	public Maze(int numRows, int numCols, String filename){
-		
+		myGrid = new Grid(numRows, numCols);
+		rows = numRows;
+		columns = numCols;
+		filename = filename;
+		try{
+			Scanner scanner = new Scanner(new FileReader(filename));
+			for (int i = 0; i < numRows; i++){
+				for (int j = 0; j < numCols; j++){
+					myGrid.setData(i, j, scanner.next());
+				}
+			}
+		}
+		catch (Exception e){
+			System.out.println(filename + " not found. Relaunch the program and try again.");
+		}
 	}
 	/*************************************************************************************
    	* 
@@ -68,7 +88,18 @@ public class Maze {
    	* 
    	************************************************************************************/
 	public void resetMaze(){
-		
+		myGrid = new Grid(rows, columns);
+		try{
+			Scanner scanner = new Scanner(new FileReader(fileName));
+			for (int i = 0; i < rows; i++){
+				for (int j = 0; j < columns; j++){
+					myGrid.setData(i, j, scanner.next());
+				}
+			}
+		}
+		catch (Exception e){
+			System.out.println(fileName + " not found. Relaunch the program and try again.");
+		}
 	}
 	/*************************************************************************************
    	* 
@@ -82,6 +113,13 @@ public class Maze {
    	* 
    	************************************************************************************/
 	public String toString(){
-		
+		String output = "";
+		for (int i = 0; i < rows; i++){
+			for (int j = 0; j < columns; j++){
+				output += myGrid.getData(i, j) + " ";
+			}
+			output += "\n";
+		}
+		return output;
 	}
 }
